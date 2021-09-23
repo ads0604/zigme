@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace = "AlarmMapper">
+	<!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap id="alarmMap" type= "study.spring.zigme.model.Alarm">
+		<!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+		<result property="alarmNo" column="alarmNo" />
+		<result property="alarmAct" column="alarmAct" />
+		<result property="alarmContent" column="alarmContent" />
+		<result property="alarmTime" column="alarmTime" />
+		<result property="userNo" column="userNo" />
+		<result property="monAct" column="monAct" />
+		<result property="tueAct" column="tueAct" />
+		<result property="wedAct" column="wedAct" />
+		<result property="thuAct" column="thuAct" />
+		<result property="friAct" column="friAct" />
+		<result property="satAct" column="satAct" />
+		<result property="sunAct" column="sunAct" />
+	</resultMap>
+	
+	<!-- 단일행 조회를 위한 기능 정의 -->
+	<select id ="selectItem" parameterType="study.spring.zigme.model.Alarm"
+	resultMap="alarmMap">
+	SELECT alarmNo, alarmAct, alarmContent, alarmTime, userNo, monAct, tueAct, wedAct, thuAct, friAct, satAct, sunAct
+	FROM alarm
+	WHERE userNo = #{userNo} AND alarmNo = ${alarmNo};
+	</select>
+	
+	
+	<!-- 다중행 조회를 위한 기능 정의 -->
+	<select id ="selectAllList" parameterType="study.spring.zigme.model.Alarm"
+	resultMap="alarmMap">
+	SELECT alarmNo, alarmAct, alarmContent, alarmTime, userNo, monAct, tueAct, wedAct, thuAct, friAct, satAct, sunAct
+	FROM alarm;
+	</select>
+	
+	<!-- 사용자별 다중행 조회를 위한 기능 정의 -->
+	<select id ="selectList" parameterType="study.spring.zigme.model.Alarm"
+	resultMap="alarmMap">
+	SELECT alarmNo, alarmAct, alarmContent, alarmTime, userNo, monAct, tueAct, wedAct, thuAct, friAct, satAct, sunAct
+	FROM alarm
+	WHERE userNo = #{userNo};
+	</select>
+	
+	<!-- 데이터 저장을 위한 기능 정의 -->
+	<insert id="insertItem"
+	parameterType = "study.spring.zigme.model.Alarm"
+	useGeneratedKeys="true"
+	keyProperty="alarmNo">
+	INSERT INTO alarm (alarmAct, alarmContent, alarmTime, userNo, monAct, tueAct, wedAct, thuAct, friAct, satAct, sunAct) VALUES 
+		("Y", #{alarmContent}, #{alarmTime}, #{userNo}, #{monAct}, #{tueAct}, #{wedAct}, #{thuAct}, #{friAct}, #{satAct}, #{sunAct});
+	</insert>
+	
+	<!-- 데이터 삭제를 위한 기능 정의 -->
+	<delete id="deleteItem"
+	parameterType="study.spring.zigme.model.Alarm">
+	DELETE FROM alarm WHERE alarmNo = #{alarmNo};
+	</delete>
+	
+	<!-- 데이터 갱신을 위한 기능 정의 -->
+	<update id= "updateItem"
+	parameterType="study.spring.zigme.model.Alarm">
+	UPDATE alarm
+	<set>
+		<if test="alarmAct != null and alarmAct != ''">
+			alarmAct = #{alarmAct}
+		</if>
+		<if test="alarmContent != null and alarmContent != ''">
+			, alarmContent = #{alarmContent}
+		</if>
+		<if test="alarmTime != null and alarmTime != ''">
+			, alarmTime = #{alarmTime}
+		</if>
+		<if test="monAct != null and monAct != ''">
+			, monAct = #{monAct}
+		</if>
+		<if test="tueAct != null and tueAct != ''">
+			, tueAct = #{tueAct}
+		</if>
+		<if test="wedAct != null and wedAct != ''">
+			, wedAct = #{wedAct}
+		</if>
+		<if test="thuAct != null and thuAct != ''">
+			, thuAct = #{thuAct}
+		</if>
+		<if test="friAct != null and friAct != ''">
+			, friAct = #{friAct}
+		</if>
+		<if test="satAct != null and satAct != ''">
+			, satAct = #{satAct}
+		</if>
+		<if test="sunAct != null and sunAct != ''">
+			, sunAct = #{sunAct}
+		</if>
+	</set>
+	WHERE alarmNo =#{alarmNo};
+	</update>
+	
+	<select id="alarmCount"
+	 parameterType="study.spring.zigme.model.Alarm"
+	 resultType="int">
+	 SELECT COUNT(*) FROM alarm;
+	 </select>
+	 
+	 <select id="alarmActItem"
+	 parameterType="study.spring.zigme.model.Alarm"
+	 resultType="String">
+	 SELECT alarmAct 
+	 FROM alarm
+	 WHERE alarmNo = #{alarmNo};
+	 </select>
+	 
+	 <!-- 요일별 알람목록 가져오기 위한 쿼리 -->	 
+	<select id ="selectAlarmList" parameterType="study.spring.zigme.model.Alarm"
+	resultMap="alarmMap">
+	SELECT alarmNo, alarmAct, alarmContent, alarmTime, userNo, monAct, tueAct, wedAct, thuAct, friAct, satAct, sunAct
+	FROM alarm WHERE userNo = #{userNo}
+		<!-- 여기서의 Act 값은 받아오는 값이므로, 이는 오늘의 요일에만 Y일 것이다. -->
+		<choose>
+			<when test='monAct == "Y"' >
+				 AND monAct = #{monAct}
+			</when>
+			<when test='tueAct == "Y"' >
+				 AND tueAct = #{tueAct}
+			</when>
+			<when test='wedAct == "Y"' >
+				 AND wedAct = #{wedAct}
+			</when>
+			<when test='thuAct == "Y"' >
+				 AND thuAct = #{thuAct}
+			</when>
+			<when test='friAct == "Y"' >
+				 AND friAct = #{friAct}
+			</when>
+			<when test='satAct == "Y"' >
+				 AND satAct = #{satAct}
+			</when>
+			<when test='sunAct == "Y"' >
+				 AND sunAct = #{sunAct}
+			</when>	
+		</choose>
+	</select>
+</mapper>
