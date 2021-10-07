@@ -154,7 +154,10 @@ textarea {
 	
 	<!--  lightbox 플러그인 -->
 	<script src="${pageContext.request.contextPath}/plugin/lightbox/js/lightbox.min.js"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ca67f5e7cd2510c89ae719dacc5c926"></script>
+	<!-- 
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ca67f5e7cd2510c89ae719dacc5c926"></script>      
+    윤지님꺼. 아래는 다솜꺼. 카카오 JS키 -->    
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8822277a612735a77f89d4d668773e2c"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/jquery.star-rating-svg.js"></script>
 	
 	<script type="text/javascript">

@@ -72,7 +72,8 @@
             ddd = zero_padding(dd);
             
             var result = yy + "년 " + mm + "월 " + dd + "일 "  + is_ampm(hh) + " " + convert_12(hh) + ":" + mi +":" +ss;
-            adminStatisDate = yy + mmm + ddd;
+                        
+            adminStatisDate = yy.toString() + mmm.toString() + ddd.toString();
                         
             // 한자리 숫자일때 숫자앞에 0더해서 출력한다.
             function zero_padding(time) {           

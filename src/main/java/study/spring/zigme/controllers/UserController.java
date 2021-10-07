@@ -384,7 +384,8 @@ public class UserController {
 		/** 쿠키*/
 		Cookie cookie = new Cookie("my_cookie", id);  // 저장할 쿠키 객체 생성.
         cookie.setPath("/");            // 쿠키의 유효 경로 --> 사이트 전역에 대한 설정.
-        cookie.setDomain("localhost");  // 쿠키의 유효 도메인
+        cookie.setDomain("112.175.69.162");  // 쿠키의 유효 도메인 (서버)
+        //cookie.setDomain("localhost");  // 쿠키의 유효 도메인 (로컬)
         
         if (id.equals("")) {     // 쿠키 시간을 설정하지 않으면 브라우저가 동작하는 동안 유효
             cookie.setMaxAge(0);        // 쿠키 설정시간이 0이면 즉시 삭제된다.
