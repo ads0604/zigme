@@ -36,7 +36,7 @@
           
          // sub navbar slide
           $(".menu-item").hover(function() {
-              $(this).find(".sub").slideToggle(300);
+              $(this).find(".sub").stop().slideToggle(300);
           });
 
          // main navbar menu hover img
