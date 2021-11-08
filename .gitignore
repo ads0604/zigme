@@ -46,6 +46,10 @@ target/
 MANIFEST.MF
 pom.properties
 target/
+
+# 맥과 충돌나서 추가한 파일
+/src/main/webapp/WEB-INF/spring/root-context.xml
+
 =======
 # Compiled class file
 *.class
